@@ -5,11 +5,30 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Login</title>
+<title>NewsGroup</title>
 </head>
-<body>
-    Welcome <s:property value="user.fname"/>!!
+<body>   
+    <h2>NewsGroup</h2> 
+    <div align="right">
+    <a href="Feed">Home</a>|<a href="">Profile</a>|<a href="">Log out</a>
+    </div>
+    <hr/>
+    
+    <s:iterator value="articlelist" var="article"> 
+    
+    <s:url value="Profile.action" var="url">
+    	<s:param name="id" value="#article.userid" />
+    </s:url>
+    		
+    <a href="<s:property value="%{#url}"/>" >
+    	 <s:property value="#article.fname" /> 
+    </a>
+    
     <br/>
-    Birthday <s:property value="user.dob"/>
+    <s:property value="#article.url" />
+    <br/>
+    
+    </s:iterator>
+    
 </body>
 </html>
