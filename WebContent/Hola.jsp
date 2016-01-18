@@ -5,9 +5,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title><s:property value="username"/></title>
+<title>NewsGroup</title>
 </head>
 <body>
-    Profile <s:property value="name" />
+   <s:action name="Feed" namespace="/" executeResult="true">
+   </s:action>
 </body>
 </html>

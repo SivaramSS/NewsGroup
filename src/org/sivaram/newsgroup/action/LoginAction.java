@@ -13,7 +13,7 @@ import com.opensymphony.xwork2.ModelDriven;
 
 public class LoginAction extends ActionSupport implements SessionAware {
 
-	SessionMap<String,String> sessionMap;
+	SessionMap<String,Object> sessionMap;
 	private User user = new User();
 	private static String SUCCESS = "success", LOGIN = "login";
     
@@ -45,7 +45,6 @@ public class LoginAction extends ActionSupport implements SessionAware {
 		//else
 		if(cl.authenticate(user)==true) 
 			{
-			  	sessionMap.put("login", "true");
 			  	user = cl.getUserob();
 			  	sessionMap.put("user", user.getUserid()+"");
 			  	return SUCCESS;
@@ -56,7 +55,7 @@ public class LoginAction extends ActionSupport implements SessionAware {
 
 	@Override
 	public void setSession(Map<String, Object> map) {
-		sessionMap = (SessionMap) map;
+		this.sessionMap = (SessionMap<String, Object>) map;
 	}
 
 }

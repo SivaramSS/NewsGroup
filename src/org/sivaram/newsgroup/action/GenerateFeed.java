@@ -1,6 +1,5 @@
 package org.sivaram.newsgroup.action;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -10,7 +9,6 @@ import org.sivaram.newsgroup.models.Article;
 import org.sivaram.newsgroup.service.FetchArticles;
 
 import com.opensymphony.xwork2.ActionSupport;
-import com.opensymphony.xwork2.ModelDriven;
 
 public class GenerateFeed extends ActionSupport implements SessionAware {
     
@@ -27,17 +25,26 @@ public class GenerateFeed extends ActionSupport implements SessionAware {
 
 	@Override
 	public void setSession(Map<String, Object> map) {
-		sessionMap = (SessionMap<String, Object>) map;
+		this.sessionMap = (SessionMap<String, Object>) map;
 	}
 	
 	public String getFeed()
 	{   
-		setArticlelist( FetchArticles.fetch() );
-		System.out.println(articlelist.size()+ " articles present");
-		if(articlelist.size() > 0)
-		  return "generated";
-		else
-		  return "nofeed";	
+	   if(sessionMap.get("user")!=null)
+		{
+		   setArticlelist( FetchArticles.fetch() );
+		   System.out.println(articlelist.size()+ " articles present");
+		   if(articlelist.size()==0)
+		   {
+			   Article a = new Article();
+			   a.setUrl("No Articles to show");
+			   articlelist.add(a);
+		   }
+		   
+		   return "generated";
+	    }
+	   else
+		   return "login";
 	}
 
 }

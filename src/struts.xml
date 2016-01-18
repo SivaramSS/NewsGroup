@@ -3,34 +3,32 @@
     "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
     "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
-    <constant name="struts.devMode" value="false" />
-    
-    <package name="default" namespace="/" extends ="struts-default" >
-         <action name="Login" class="org.sivaram.newsgroup.action.LoginAction">
+	<package name="user" namespace="/" extends="struts-default">
+    	<action name="Login" class="org.sivaram.newsgroup.action.LoginAction">
              <result name="success" type="redirect">/Feed</result>
              <result name="login">/Login.jsp</result>
              <result name="input">/Login.jsp</result>
          </action>
-    </package>
-    
-    <package name="createuser" namespace="/" extends="struts-default" >
+         
          <action name="Signup" class="org.sivaram.newsgroup.action.SignupAction" method="createAccount">
              <result name="success" type="redirect">/Feed</result>
              <result name="input">/Login.jsp</result>
          </action>
-    </package>
-    
-    <package name="ShowFeed" namespace="/" extends="struts-default">
-    	<action name="Feed" class="org.sivaram.newsgroup.action.GenerateFeed" method="getFeed">
-    	     <result name="generated">/Home.jsp</result>
-    	     <result name="nofeed">/error.jsp</result>
-    	</action>
-    </package>
-    
-    <package name="ShowProfile" namespace="/" extends="struts-default">
-    	<action name="Profile" class="org.sivaram.newsgroup.action.ProfileAction" method="getProfile">
+         
+         <action name="Profile" class="org.sivaram.newsgroup.action.ProfileAction" method="getProfile">
      	 	 <result name="success">/Profile.jsp</result>
      	</action>  	
+     	
+     	<action name="Share" class="org.sivaram.newsgroup.action.ShareAction" method="shareUrl()">
+     		 <result name="generated">/Home.jsp</result>
+     	</action>
     </package>
+
+    <package name="default" namespace="/" extends="struts-default">
+		<action name="Feed" class="org.sivaram.newsgroup.action.GenerateFeed" method="getFeed">
+    	     <result name="generated" type="dispatcher">/Home.jsp</result>
+    	     <result name="login" type="dispatcher">/Login.jsp</result>
+    	</action>
+	</package>
     
  </struts>

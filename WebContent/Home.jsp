@@ -10,14 +10,24 @@
 <body>   
     <h2>NewsGroup</h2> 
     <div align="right">
-    <a href="Feed">Home</a>|<a href="">Profile</a>|<a href="">Log out</a>
+    <s:url value="Profile" var="ownprof">
+     	<s:param name="id" value="\"own\"" />
+    </s:url>
+    <a href="Feed">Home</a>|<a href="<s:property value="%{#ownprof}"/>">Profile</a>|<a href="">Log out</a>
     </div>
     <hr/>
     
+    <div align="center">
+    	<s:form method="post" action="/Share">
+     	<s:textfield name="shareurl" value="copy and paste url of article here" />
+     	<s:submit value="Share"/>  	
+     	</s:form>
+    </div>
+    
     <s:iterator value="articlelist" var="article"> 
     
-    <s:url value="Profile.action" var="url">
-    	<s:param name="id" value="#article.userid" />
+    <s:url value="Profile" var="url">
+         <s:param name="id" value="%{#article.userid}" />
     </s:url>
     		
     <a href="<s:property value="%{#url}"/>" >
@@ -29,6 +39,7 @@
     <br/>
     
     </s:iterator>
+    
     
 </body>
 </html>
