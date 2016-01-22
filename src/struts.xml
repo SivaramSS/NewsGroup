@@ -4,6 +4,7 @@
     "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
 	<package name="user" namespace="/" extends="struts-default">
+	    
     	<action name="Login" class="org.sivaram.newsgroup.action.LoginAction">
              <result name="success" type="redirect">/Feed</result>
              <result name="login">/Login.jsp</result>
@@ -19,8 +20,17 @@
      	 	 <result name="success">/Profile.jsp</result>
      	</action>  	
      	
-     	<action name="Share" class="org.sivaram.newsgroup.action.ShareAction" method="shareUrl()">
-     		 <result name="generated">/Home.jsp</result>
+     	<action name="Share" class="org.sivaram.newsgroup.action.ShareAction" method="shareArticle">
+     		 <result name="generated" type="redirect">/Feed</result>
+     	</action>
+     	
+     	<action name="Logout" class="org.sivaram.newsgroup.action.LoginAction" method="logout">
+     		<result name="success">/Login.jsp</result>
+     		<result name="feed">/Feed</result>
+     	</action>
+     	
+     	<action name="LikeUnlike" class="org.sivaram.newsgroup.action.LikeAction" method="setLiked">
+     		<result name="success">#</result>
      	</action>
     </package>
 

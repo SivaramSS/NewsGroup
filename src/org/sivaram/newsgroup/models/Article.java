@@ -1,12 +1,28 @@
 package org.sivaram.newsgroup.models;
 
+import java.util.Date;
+
 public class Article {
 
 	String userid, fname, lname, url, title, content, aid;
 	int count_likes, count_comments;
+	Date uldatetime;
+	int liked;
 	
-	   public String getTitle() {
+	   public int isLiked() {
+		return liked;
+	}
+	public void setLiked(int liked) {
+		this.liked = liked;
+	}
+	public String getTitle() {
 		return title;
+	}
+	public Date getUldatetime() {
+		return uldatetime;
+	}
+	public void setUldatetime(Date uldatetime) {
+		this.uldatetime = uldatetime;
 	}
 	public void setTitle(String title) {
 		this.title = title;

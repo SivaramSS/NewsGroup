@@ -19,6 +19,9 @@ import org.sivaram.newsgroup.models.User;
 public class ProfileAction extends Action implements SessionAware, ServletRequestAware{
     
 	String username;
+	SessionMap<String,Object> sessionMap;
+	HttpServletRequest request;
+	
 	public String getUsername() {
 		return username;
 	}
@@ -27,9 +30,6 @@ public class ProfileAction extends Action implements SessionAware, ServletReques
 		this.username = username;
 	}
 
-	SessionMap<String,Object> sessionMap;
-	HttpServletRequest request;
-	
 	public String getProfile()
 	{   
 		System.out.println("In Profile Action");

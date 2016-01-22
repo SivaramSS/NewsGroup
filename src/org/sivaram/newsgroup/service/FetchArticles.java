@@ -11,7 +11,7 @@ import org.sivaram.newsgroup.models.Article;
 
 public class FetchArticles {
     
-	public static ArrayList<Article> fetch()
+	public static ArrayList<Article> fetch(String userid)
 	{   
 		ArrayList<Article> articlelist = new ArrayList<Article>();
 	    Connection con = null;
@@ -22,7 +22,8 @@ public class FetchArticles {
 	    	Class.forName("com.mysql.jdbc.Driver");
 	    	con = DriverManager.getConnection("jdbc:mysql://localhost/newsgroupdb","root","axess");
 	    	
-	    	PreparedStatement ps = con.prepareStatement("select aid,a.userid,url,countlikes,countcom,fname,lname from article a, profile p where a.userid=p.userid");
+	    	PreparedStatement ps = con.prepareStatement("select aid,a.userid,url,countlikes,countcom,fname,lname,uldatetime, (select count(*) from likes l where l.userid=? and l.aid=a.aid) as liked from article a, profile p where a.userid=p.userid");
+	    	ps.setString(1, userid);
 	    	rs = ps.executeQuery();
 	    	
 	    	while(rs.next())
@@ -36,8 +37,12 @@ public class FetchArticles {
 	    		a.setCount_comments(rs.getInt("countcom"));
 	    		a.setFname(rs.getString("fname"));
 	    		a.setLname(rs.getString("lname"));
-	    		
-	    		System.out.println(a.getFname() + " : " + a.getUrl() );
+	    		a.setUldatetime(rs.getDate("uldatetime"));
+	    		a.setLiked(rs.getInt("liked"));
+	    		if(a.isLiked()==1)
+	    			{
+	    				System.out.println("article : "+a.getAid() +" Liked : "+rs.getInt("liked"));
+	    			}
 	    		articlelist.add(a);
 	    	}
 	    

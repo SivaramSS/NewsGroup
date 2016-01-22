@@ -30,9 +30,11 @@ public class GenerateFeed extends ActionSupport implements SessionAware {
 	
 	public String getFeed()
 	{   
+		
+		
 	   if(sessionMap.get("user")!=null)
 		{
-		   setArticlelist( FetchArticles.fetch() );
+		   setArticlelist( FetchArticles.fetch(sessionMap.get("user").toString()) );
 		   System.out.println(articlelist.size()+ " articles present");
 		   if(articlelist.size()==0)
 		   {
