@@ -36,6 +36,27 @@
 		var data = "aid="+aid+"&userid="+userid;
 		xhttp.send(data);
 	}
+	
+	function comment(obj, aid)
+	{
+		alert(aid);
+		$.ajax ({
+	 		  
+	 		  type: "POST" ,
+	 		  url: "/NewsGroup/Comments.action" ,
+	 		  data : { "aid" : aid } ,
+	 		  success :
+	 			   function (result)
+	 		  		{
+	 			  		console.log(result);
+	 		  		} ,
+	 		  error :
+	 			   function (req, status, error)
+	 		  		{
+	 			  		
+	 		  		}
+		});
+	}
 </script>
 
 </head>
@@ -69,33 +90,38 @@
      	</form>
     
     	<div style="margin:5px;">
+    		
     		<s:iterator value="articlelist" var="article" status="incr"> 
     		
     		    <div align="left">
     		    
-    		    <s:url action="Profile" var="url">
-    	    		 <s:param name="id" value="%{#article.userid}" />
-    			</s:url>
+    		    	<s:url action="Profile" var="url">
+    	    			 <s:param name="id" value="%{#article.userid}" />
+    				</s:url>
     			
-    			<a href="<s:property value="%{#url}"/>" >
-    	 			<s:property value="#article.fname" /> 
-    			</a>
+    				<a href="<s:property value="%{#url}"/>" >
+    	 				<s:property value="#article.fname" /> 
+    				</a>
+    				
     			</div>
     			
     			<br/>
     			<s:property value="#article.url" />
     			<br/>
     			
-    			<s:set name="liked" value="%{#article.liked}"/>
-    			
-    			<s:set name="userid" value="%{#article.userid}"/>
-    			<s:set name="aid" value="%{#article.aid}" />
+    			<div align="left" style="margin:10px;">
+    				<s:set name="liked" value="%{#article.liked}"/>
+    				<s:set name="userid" value="%{#article.userid}"/>
+    				<s:set name="aid" value="%{#article.aid}" />
     				
-    			<s:if test="%{#liked==1}">
-    				<s:a id="likebtn" href="#" onclick="change(this,%{aid}, %{userid})" >Unlike</s:a>
-    			</s:if> <s:else>
-    				<s:a id="likebtn" href="#" onclick="change(this,%{aid}, %{userid})">Like</s:a>
-    			</s:else>
+    				<s:if test="%{#liked==1}">
+    					<s:a id="likebtn" href="#" onclick="change(this,%{aid}, %{userid});" >Unlike</s:a>
+    				</s:if> <s:else>
+    					<s:a id="likebtn" href="#" onclick="change(this,%{aid}, %{userid});">Like</s:a>
+    				</s:else>
+    				
+    				<s:a id="commentbtn" href="#" onclick="comment(this, %{#aid});" >comment</s:a>
+    			</div>
     			
     		</s:iterator>
     	</div>

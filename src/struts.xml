@@ -32,6 +32,10 @@
      	<action name="LikeUnlike" class="org.sivaram.newsgroup.action.LikeAction" method="setLiked">
      		<result name="success">#</result>
      	</action>
+     	
+     	<action name="Comments" class="org.sivaram.newsgroup.action.CommentsAction" method="getComments">
+     		<result name="success"></result>
+     	</action>
     </package>
 
     <package name="default" namespace="/" extends="struts-default">
