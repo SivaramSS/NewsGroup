@@ -5,7 +5,14 @@ import org.apache.struts2.components.Date;
 
 public class User {
 
-	String userid, email, password, cp, fname, lname, dob;
+	String userid, email, password, cp, fname, lname, dob,postsCount;
+	
+	public String getPostsCount() {
+		return postsCount;
+	}
+	public void setPostsCount(String postsCount) {
+		this.postsCount = postsCount;
+	}
 	public String getCp() {
 		return cp;
 	}

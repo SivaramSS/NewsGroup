@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Login</title>
 </head>
-<body>
+<body style="background: #d3d3d3;">
     <h3>Login</h3>
     <br/>
     <s:form name="getin" method = "POST" action = "/Login" >

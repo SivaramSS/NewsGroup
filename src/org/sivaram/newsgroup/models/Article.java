@@ -18,10 +18,11 @@ public class Article {
 	public String getTitle() {
 		return title;
 	}
-	public Date getUldatetime() {
-		return uldatetime;
+	public String getUldatetime() {
+		return uldatetime.toString();
 	}
 	public void setUldatetime(Date uldatetime) {
+		System.out.println("In ul datetime: "+uldatetime.toString());
 		this.uldatetime = uldatetime;
 	}
 	public void setTitle(String title) {

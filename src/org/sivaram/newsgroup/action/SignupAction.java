@@ -84,7 +84,7 @@ public class SignupAction extends ActionSupport implements SessionAware, ModelDr
 
 
 	@Override
-	public Object getModel() {
+	public User getModel() {
 		return user;
 	}
 	

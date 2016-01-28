@@ -3,6 +3,7 @@
     "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
     "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
+
 	<package name="user" namespace="/" extends="struts-default">
 	    
     	<action name="Login" class="org.sivaram.newsgroup.action.LoginAction">
@@ -12,7 +13,7 @@
          </action>
          
          <action name="Signup" class="org.sivaram.newsgroup.action.SignupAction" method="createAccount">
-             <result name="success" type="redirect">/Feed</result>
+             <result name="success" type="redirect">/newuser.jsp</result>
              <result name="input">/Login.jsp</result>
          </action>
          
@@ -30,14 +31,51 @@
      	</action>
      	
      	<action name="LikeUnlike" class="org.sivaram.newsgroup.action.LikeAction" method="setLiked">
-     		<result name="success">#</result>
+     		<result type="stream" name="success">
+     			<param name="root">inputStream</param>
+     		</result>
      	</action>
      	
-     	<action name="Comments" class="org.sivaram.newsgroup.action.CommentsAction" method="getComments">
-     		<result name="success"></result>
+     	<action name="GetLikesCount" class="org.sivaram.newsgroup.action.LikeAction" method="getLikesCount">
+     		<result type="stream" name="success">
+     			<param name="root">inputStream</param>
+     		</result>
+     	</action>
+     	
+     	<action name="ViewPost" class="org.sivaram.newsgroup.action.ViewPostAction" method="viewPost">
+     		<result name="show">/Post.jsp</result>
      	</action>
     </package>
 
+	<package name="comment" namespace="/" extends="json-default">
+		<!-- 
+		<interceptors>
+    		<interceptor-stack name="defaultStack">
+        		<interceptor-ref name="json">
+            		<param name="enableSMD">true</param>
+        		</interceptor-ref>
+    		</interceptor-stack>
+		</interceptors>
+		-->
+		<action name="Comments" class="org.sivaram.newsgroup.action.CommentsAction" method="getComments">
+     		<result type="json">
+     			<param name="root">commentlist</param>
+     		</result>
+     	</action>
+     	
+     	<action name="InsertComment" class="org.sivaram.newsgroup.action.CommentsAction" method="insertComment">
+     		<result type="stream" name="done">
+				<param name="root">inputStream</param>     		
+     		</result>
+     	</action>
+     	
+     	<action name="GetCommentsCount" class="org.sivaram.newsgroup.action.CommentsAction" method="getCommentsCount">
+     		<result type="stream" name="done">
+     			<param name="root">inputStream</param>
+     		</result>
+     	</action>
+	</package>
+	
     <package name="default" namespace="/" extends="struts-default">
 		<action name="Feed" class="org.sivaram.newsgroup.action.GenerateFeed" method="getFeed">
     	     <result name="generated" type="dispatcher">/Home.jsp</result>

@@ -7,12 +7,22 @@ import org.apache.struts2.dispatcher.SessionMap;
 import org.apache.struts2.interceptor.SessionAware;
 import org.sivaram.newsgroup.models.Article;
 import org.sivaram.newsgroup.service.FetchArticles;
+import org.sivaram.newsgroup.service.FetchProfile;
 
 import com.opensymphony.xwork2.ActionSupport;
 
 public class GenerateFeed extends ActionSupport implements SessionAware {
     
 	private SessionMap<String,Object> sessionMap;
+	String fname;
+	public String getFname() {
+		return fname;
+	}
+
+	public void setFname(String fname) {
+		this.fname = fname;
+	}
+
 	List<Article> articlelist;
 	
 	public List<Article> getArticlelist() {
@@ -34,6 +44,10 @@ public class GenerateFeed extends ActionSupport implements SessionAware {
 		
 	   if(sessionMap.get("user")!=null)
 		{
+		   FetchProfile profile = new FetchProfile();
+		   profile.getProfile(sessionMap.get("user").toString());
+		   setFname( profile.getUser().getFname());
+		   
 		   setArticlelist( FetchArticles.fetch(sessionMap.get("user").toString()) );
 		   System.out.println(articlelist.size()+ " articles present");
 		   if(articlelist.size()==0)

@@ -5,9 +5,26 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title><s:property value="username"/></title>
+<title><s:property value="user.fname"/></title>
 </head>
-<body>
-    Profile <s:property value="name" />
+<body style="background: #d3d3d3;">
+	<div align="left" style="margin : 10px;">
+		<br/>
+		<s:property value="user.fname" /> <s:property value="user.lname"/>
+     	<br/>
+     	<br/>
+     	<s:property value="user.dob" />
+     	<br/>
+     	<br/>
+     	<s:if test="%{user.email==\"\"}">
+     	</s:if> 
+     	<s:else>
+     		<s:property value="user.email" />
+     		<br/>
+     		<br/>
+     	</s:else>
+     	Contribution : <s:property value="user.postsCount"/> posts
+	</div>
+	
 </body>
 </html>

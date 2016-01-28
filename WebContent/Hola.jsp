@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>NewsGroup</title>
 </head>
-<body>
+<body style="background: #d3d3d3;">
    <s:action name="Feed" namespace="/" executeResult="true">
    </s:action>
 </body>

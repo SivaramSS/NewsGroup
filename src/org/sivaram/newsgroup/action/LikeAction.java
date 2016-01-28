@@ -1,9 +1,13 @@
 package org.sivaram.newsgroup.action;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Map;
 
@@ -21,7 +25,16 @@ public class LikeAction extends ActionSupport implements SessionAware, ServletRe
 	HttpServletRequest request;
 	SessionMap<String,Object> sessionMap;
 	HttpServletResponse response;
+	private InputStream inputStream;
 	
+	public InputStream getInputStream() {
+		return inputStream;
+	}
+
+	public void setInputStream(InputStream inputStream) {
+		this.inputStream = inputStream;
+	}
+
 	@Override
 	public void setServletRequest(HttpServletRequest req) {
 		request = req;
@@ -34,13 +47,11 @@ public class LikeAction extends ActionSupport implements SessionAware, ServletRe
 	
 	public String setLiked()
 	{
-		String userid = request.getParameter("userid");
+		String userid = sessionMap.get("user").toString();
 		String aid = request.getParameter("aid");
 		int result = 0;
-		System.out.println("In LikeAction userid : "+userid+" aid :"+aid);
+		System.out.println("In LikeAction setLiked userid : "+userid+" aid :"+aid);
 		Connection con = null;
-		response.setContentType("text/html");
-		response.setHeader("Cache-Control", "no-cache");
 		try
 		{
 			Class.forName("com.mysql.jdbc.Driver");
@@ -50,7 +61,7 @@ public class LikeAction extends ActionSupport implements SessionAware, ServletRe
 			ps.setString(2,userid);
 			result = ps.executeUpdate();
 			if(result==1)
-			System.out.println("Liked");
+			System.out.println("Success");
 			
 		}
 		catch(Exception e)
@@ -64,23 +75,19 @@ public class LikeAction extends ActionSupport implements SessionAware, ServletRe
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+			
 			if(result==1)
-			 { try {
-					response.getWriter().write("Unlike");
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			 }
+			 	{ 
+				  	InputStream temp = new ByteArrayInputStream("Success".getBytes(StandardCharsets.UTF_8));
+				  	setInputStream(temp);
+			 	}
 			else
 				{
-				 	try {
-						response.getWriter().write("Like");
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
+					InputStream temp = new ByteArrayInputStream("Operation not performed".getBytes(StandardCharsets.UTF_8));
+					setInputStream(temp);
 				}
 		}
-		return ActionSupport.NONE;
+		return "success";
 	}
 
 	@Override
@@ -88,5 +95,49 @@ public class LikeAction extends ActionSupport implements SessionAware, ServletRe
 		this.response = response;
 	}
 
-	
+	public String getLikesCount()
+	{
+	  String aid = request.getParameter("aid");
+	  System.out.println("In getLikesCount() "+aid);
+	  Connection con = null;
+	  ResultSet rs = null;
+	  String nooflikes = null;
+	  try
+	  	{
+		  Class.forName("com.mysql.jdbc.Driver");
+		  con = DriverManager.getConnection("jdbc:mysql://localhost/newsgroupdb","root","axess");
+		  PreparedStatement ps = con.prepareStatement("select count(*) as countlikes from likes where aid=?");
+		  ps.setString(1,aid);
+		  rs = ps.executeQuery();
+		  if(rs.next())
+		  	{ 
+			  nooflikes = rs.getString("countLikes");
+			  System.out.println("In countlikes nooflikes = "+nooflikes);
+			  
+			  InputStream temp = new ByteArrayInputStream(nooflikes.getBytes(StandardCharsets.UTF_8));
+			  setInputStream(temp);
+		  	}
+		  else
+			  System.out.println("Sql error on execution of query");
+	  	}
+	  catch(Exception e)
+	  	{
+		  e.printStackTrace();  
+	  	}
+	  finally 
+	  {
+		  try 
+		  	{
+			  rs.close();
+			  con.close();
+		  	} 
+		  catch (SQLException e) 
+		  	{
+			  e.printStackTrace();
+		  	}
+		  
+	  }
+	  
+	  return "success";
+	}
 }

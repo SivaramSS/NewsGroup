@@ -36,7 +36,7 @@ public class ShareAction extends ActionSupport implements SessionAware {
 		Article a = new Article();
 		a.setUserid(sessionMap.get("user").toString());
 		a.setUrl(shareUrl);
-		InsertArticle.readContent();
+		InsertArticle.insert(a);
 		//System.out.println( InsertArticle.insert(a) );
 		return "generated";
 	}
