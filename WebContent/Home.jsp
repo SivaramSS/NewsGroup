@@ -8,6 +8,7 @@
 <title>NewsGroup</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js">
 </script>
+
 <script>
 	function disnooflikes(aid,likesec)
 	{
@@ -153,6 +154,7 @@
 				   	  }
 		});
 	}
+	
 </script>
 
 </head>
@@ -160,7 +162,6 @@
 <body style="background : #d3d3d3;">   
 
     <h2>NewsGroup</h2> 
-    <frame >
     <div align="right">
         <s:url action="Feed" var="feed"/> 
     	<s:url action="Profile" var="ownprof">
@@ -178,21 +179,19 @@
     	<a href="<s:property value="%{#signout}"/>">Log out</a>
     </div>
     <hr/>
-    </frame>
-    
-    <frame>
     <div align="center">
     	
     	<form method="post" action="/NewsGroup/Share.action">
      	<input type="text" id="shareurl" name="shareUrl" value="copy and paste url of article here" style="width:300px; height:20px;" onfocus="if(this.value == 'copy and paste url of article here') {this.value=''}" onblur="if(this.value == '') {this.value='copy and paste url of article here'}" />
      	<input type="submit" value="Share" style="height: 15px; "/>  	
      	</form>
-    
+    	<div align="center" class="Loading" style="display : block;margin-top:30px;">
+    	</div>
     	<div style="margin:5px;">
     		
     		<s:iterator value="articlelist" var="article" status="incr"> 
     		  <div style="background: #ffffff; margin-left:5px; margin-top:30px; border-radius:10px;">
-    		    <div align="left" style="padding:20px;]">
+    		    <div align="left" style="padding:20px;">
     		    	<s:url action="Profile" var="url">
     	    			 <s:param name="id" value="%{#article.userid}" />
     				</s:url>
@@ -259,6 +258,5 @@
     		</s:iterator>
     	</div>
     </div>
-    </frame>
 </body>
 </html>

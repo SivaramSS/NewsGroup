@@ -12,6 +12,7 @@ import org.sivaram.newsgroup.models.User;
 import org.sivaram.newsgroup.service.CheckLogin;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.ValidationAware;
 
 public class LoginAction extends ActionSupport implements SessionAware, ServletRequestAware {
 
@@ -20,7 +21,16 @@ public class LoginAction extends ActionSupport implements SessionAware, ServletR
 	private static String SUCCESS = "success", LOGIN = "login";
     private boolean logoutval;
     HttpServletRequest request;
+    String loginflag;
     
+	public String getLoginflag() {
+		return loginflag;
+	}
+
+	public void setLoginflag(String loginflag) {
+		this.loginflag = loginflag;
+	}
+
 	public boolean isLogoutval() {
 		return logoutval;
 	}
@@ -39,15 +49,18 @@ public class LoginAction extends ActionSupport implements SessionAware, ServletR
 	
 	public void validate()
 	{
-	 	
-	 if(!sessionMap.containsKey("user"))
-	 {
+		System.out.println("In validate Login action : "+ loginflag + " ");
+	 if(!sessionMap.containsKey("user") && loginflag!=null && loginflag.contains("true") )
+	  {
 		 if(StringUtils.isEmpty(user.getEmail()))
 			 addFieldError("user.email", "Email id cannot be blank");
-	 
+		 
 		 if(StringUtils.isEmpty(user.getPassword()))
 			 addFieldError("user.password","Password cannot be blank");
-	 }
+		 
+		 //user.setEmail( user.getEmail().replaceAll("[-+^=;]", "") );
+		 //user.setPassword(user.getPassword().replaceAll("[-+^=;]", ""));
+	  }
 	 
 	}
 	
@@ -57,20 +70,18 @@ public class LoginAction extends ActionSupport implements SessionAware, ServletR
 			return SUCCESS;
 		else
 		{
-		System.out.println("In LoginAction : "+user.getEmail() +" " + user.getPassword());
-		CheckLogin cl = new CheckLogin();
-		//if( sessionMap.containsKey("login") )
-		//	return SUCCESS;
-		//else
-		if(cl.authenticate(user)==true) 
-			{
-			  	user = cl.getUserob();
-			  	sessionMap.put("user", user.getUserid()+"");
-			  	return SUCCESS;
-			}
-		else
-			return LOGIN;
-		}
+			System.out.println("In LoginAction : "+user.getEmail() +" " + user.getPassword());
+			CheckLogin cl = new CheckLogin();
+		
+			if(cl.authenticate(user)==true) 
+				{
+			  		user = cl.getUserob();
+			  		sessionMap.put("user", user.getUserid()+"");
+			  		return SUCCESS;
+				}
+			else
+				return LOGIN;
+	   }
 	}
 
 	public String logout()

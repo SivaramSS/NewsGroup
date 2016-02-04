@@ -8,7 +8,7 @@
 <title>NewsGroup</title>
 </head>
 <body style="background: #d3d3d3;">
-   <s:action name="Feed" namespace="/" executeResult="true">
+   <s:action name="SmartFeed" namespace="/" executeResult="true">
    </s:action>
 </body>
 </html>

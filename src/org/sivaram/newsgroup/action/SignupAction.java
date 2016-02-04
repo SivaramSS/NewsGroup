@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
@@ -18,14 +17,13 @@ import com.opensymphony.xwork2.ModelDriven;
 public class SignupAction extends ActionSupport implements SessionAware, ModelDriven {
     
 	private User user = new User();
-	SessionMap<String,String> sessionMap;
+	SessionMap<String,Object> sessionMap;
 	private String SUCCESS="success", LOGIN="login";
 	
 	@Override
 	public void setSession(Map<String, Object> map) {
-		 sessionMap = (SessionMap) map;
+		 sessionMap = (SessionMap<String,Object>) map;
 	}
-
 
 	public User getuser() {
 		return user;
@@ -37,18 +35,32 @@ public class SignupAction extends ActionSupport implements SessionAware, ModelDr
     
 	public void validate()
 	{
-		if(StringUtils.isEmpty(user.getEmail()))
+		user.setEmail(user.getEmail().trim());
+		user.setPassword(user.getPassword().trim());
+		user.setFname(user.getFname().trim());
+		user.setLname(user.getLname().trim());
+		user.setDob(user.getDob().trim());
+		
+		if( StringUtils.isEmpty(user.getEmail()) )
 			addFieldError("email", " id cannot be blank");
-		if(StringUtils.isEmpty(user.getPassword()))
+		if( StringUtils.isEmpty(user.getPassword()) )
 			addFieldError("password", "Password cannot be blank");
-		if(StringUtils.isEmpty(user.getCp()))
-			addFieldError("cp", "Please Confirm password");
-		if(StringUtils.isEmpty(user.getFname()))
+		if( StringUtils.isEmpty(user.getFname()) )
 			addFieldError("fname", "First name cannot be blank");
-		if(StringUtils.isEmpty(user.getLname()))
+		if( StringUtils.isEmpty(user.getLname()) )
 			addFieldError("lname", "Last name cannot be blank");
-		//if(user.getDob().toString().isEmpty())
-			//addFieldError("dob", "Birthday cannot be blank");
+		if( !user.getPassword().toString().equals(user.getCp()) )
+			addFieldError("cp","Password does not match");
+		if( user.getDob().toString().isEmpty() )
+			addFieldError("dob", "Birthday cannot be blank");
+		if( !(user.getEmail().contains("@") || user.getEmail().contains(".")) )
+			addFieldError("user.email","Invalid Email Format");
+		
+		user.setEmail(user.getEmail().replaceAll("[-+^=;]",""));
+		user.setPassword(user.getPassword().replaceAll("[-+^=;]",""));
+		user.setFname(user.getFname().replaceAll("[-+^=;]",""));
+		user.setLname(user.getLname().replaceAll("[-+^=;]", ""));
+		
 	}
 	
 	public String createAccount()

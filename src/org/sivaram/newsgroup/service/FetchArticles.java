@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.sivaram.newsgroup.models.Article;
 
@@ -124,4 +125,53 @@ public class FetchArticles {
 	  return a;
 	}
 	
+	public static List<Article> fetchArticlesByUserId(String userid)
+	{
+		List<Article> articlelist = new ArrayList<Article>();
+		Connection con = null;
+		ResultSet rs = null;
+		try
+		{
+			Class.forName("com.mysql.jdbc.Driver");
+			con = DriverManager.getConnection("jdbc:mysql://localhost/newsgroupdb","root","axess");
+			PreparedStatement ps = con.prepareStatement("select aid,url,fname,lname,uldatetime,(select count(*) from likes l where l.aid = a.aid) as countlikes, (select count(*) from comments c where c.aid=a.aid) as countcomments, (select count(*) from likes l where l.userid=? and l.aid=a.aid) as liked from profile p, article a where p.userid=a.userid and a.userid=?");
+			ps.setString(1, userid);
+			ps.setString(2, userid);
+			rs = ps.executeQuery();
+			while(rs.next())
+			{
+				Article a = new Article();
+				a.setUserid(userid);
+				a.setAid(rs.getString("aid"));
+				a.setFname(rs.getString("fname"));
+				a.setLname(rs.getString("lname"));
+				a.setUrl(rs.getString("url"));
+				a.setCount_likes(rs.getInt("countlikes"));
+				a.setCount_comments(rs.getInt("countcomments"));
+				a.setLiked(rs.getInt("liked"));
+				Timestamp ts = rs.getTimestamp("uldatetime");
+				Date temp = new Date(ts.getTime());
+				a.setUldatetime(temp);
+				HTMLParser hp = new HTMLParser();
+				if( hp.parse(a.getUrl())==true )
+					{
+						System.out.println(hp.getTitle());
+						a.setTitle(hp.getTitle());
+						a.setContent(hp.getContent());
+					}
+				else
+					{
+						a.setTitle("Article failed to load");
+					}
+				articlelist.add(a);
+			}	
+		}
+		
+		catch(Exception e)
+		{
+		   e.printStackTrace();
+		}
+		
+		return articlelist;
+	}
 }

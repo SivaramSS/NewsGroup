@@ -1,36 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title><s:property value="user.fname"/></title>
+<style type="text/css">
+	input[type=submit] {
+    padding:5px 15px; 
+    background:#003366; 
+    border:0 none;
+    color: #ffffff;
+    cursor:pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 5px; 
+}
+</style>
 </head>
-<body style="background: #d3d3d3;">
-	<div align="left" style="margin : 10px;">
-		<br/>
-		<s:property value="user.fname" /> <s:property value="user.lname"/>
-     	<br/>
-     	<br/>
-     	<s:property value="user.dob" />
-     	<br/>
-     	<br/>
-     	<s:if test="%{user.email==\"\"}">
-     	</s:if> 
-     	<s:else>
-     		<s:property value="user.email" />
-     		<br/>
-     		<br/>
-     	</s:else>
-     	Contribution : <s:property value="user.postsCount"/> posts
-	</div>
-	
-	<s:iterator value="articlelist" var="article" status="incr">
-	 	<div style="background: #ffffff; margin-left:30px; margin-right: 30px; margin-top:30px; border-radius:10px;">
-    		    
+
+<center>
+<form method="post" action="/NewsGroup/Share.action" style="margin-top:20px;">
+     		<input type="text" id="shareurl" name="shareUrl" value="copy and paste url of article here" style="width:50%; height:25px; text-align:center; " onfocus="if(this.value == 'copy and paste url of article here') {this.value=''}" onblur="if(this.value == '') {this.value='copy and paste url of article here'}" />
+     		<input type="submit" value="Share" style="height: 25px; "/>  	
+</form>
+</center>
+<s:iterator value="articlelist" var="article" status="incr"> 
+    		  <div style="background: #ffffff; margin-left:30px; margin-right: 30px; margin-top:30px; border-radius:10px;">
     		    <div align="left" style="padding:20px;">
+    		    	
     				<s:set var="uid" value="%{#article.userid}"/>
+    				
     				<s:a href="#" onclick="loadProfile('%{#uid}');">
     	 				<s:property value="#article.fname" /> 
     				</s:a>
@@ -86,11 +82,8 @@
     					<s:a id="%{#comcount}" href="#" onclick=" comment( '%{#comcount}','%{#aid}', '%{#comsec}'); "><s:property value="#article.count_comments"/> comments</s:a> 
     				</s:else>
     				
-    				<div class="<s:property value="%{#comsec}"/>" id="<s:property value="%{#comsec}" />" align="center" style="display:none;">
-    				</div>
-    		</div>
-    	</div>
-	</s:iterator>
-	
-</body>
-</html>
+     <div class="<s:property value="%{#comsec}"/>" id="<s:property value="%{#comsec}" />" align="center" style="display:none;">
+    </div>
+   </div>
+ </div>
+</s:iterator>

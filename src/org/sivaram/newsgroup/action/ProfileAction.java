@@ -1,5 +1,6 @@
 package org.sivaram.newsgroup.action;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,7 +9,9 @@ import org.apache.struts.action.Action;
 import org.apache.struts2.dispatcher.SessionMap;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.SessionAware;
+import org.sivaram.newsgroup.models.Article;
 import org.sivaram.newsgroup.models.User;
+import org.sivaram.newsgroup.service.FetchArticles;
 import org.sivaram.newsgroup.service.FetchProfile;
 
 import com.opensymphony.xwork2.ModelDriven;
@@ -19,7 +22,16 @@ public class ProfileAction extends Action implements SessionAware, ServletReques
 	User user;
 	SessionMap<String,Object> sessionMap;
 	HttpServletRequest request;
+	List<Article> articlelist;
 	
+	public List<Article> getArticlelist() {
+		return articlelist;
+	}
+
+	public void setArticlelist(List<Article> articlelist) {
+		this.articlelist = articlelist;
+	}
+
 	public String getUsername() {
 		return username;
 	}
@@ -41,10 +53,11 @@ public class ProfileAction extends Action implements SessionAware, ServletReques
 		FetchProfile profile = new FetchProfile();
 		profile.getProfile(userid);
 		user = profile.getUser();
-		if(!request.getParameter("id").toString().equals("own"))
+		if(!request.getParameter("id").toString().equals(sessionMap.get("user").toString()))
 			user.setEmail("");
 		//if(request.getParameter("id"))
 		System.out.println(request.getParameter("id"));
+		articlelist = FetchArticles.fetchArticlesByUserId(userid);
 		return "success";
 	}
 

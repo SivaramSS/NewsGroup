@@ -7,7 +7,7 @@
 	<package name="user" namespace="/" extends="struts-default">
 	    
     	<action name="Login" class="org.sivaram.newsgroup.action.LoginAction">
-             <result name="success" type="redirect">/Feed</result>
+             <result name="success" type="redirect">/Smartfeed.jsp</result>
              <result name="login">/Login.jsp</result>
              <result name="input">/Login.jsp</result>
          </action>
@@ -22,12 +22,13 @@
      	</action>  	
      	
      	<action name="Share" class="org.sivaram.newsgroup.action.ShareAction" method="shareArticle">
-     		 <result name="generated" type="redirect">/Feed</result>
+     		 <result name="generated" type="redirect">/Smartfeed.jsp</result>
      	</action>
      	
      	<action name="Logout" class="org.sivaram.newsgroup.action.LoginAction" method="logout">
      		<result name="success">/Login.jsp</result>
-     		<result name="feed">/Feed</result>
+     		<result name="feed">/Smartfeed.jsp</result>
+     		<result name="input">/Login.jsp</result>
      	</action>
      	
      	<action name="LikeUnlike" class="org.sivaram.newsgroup.action.LikeAction" method="setLiked">
@@ -48,15 +49,7 @@
     </package>
 
 	<package name="comment" namespace="/" extends="json-default">
-		<!-- 
-		<interceptors>
-    		<interceptor-stack name="defaultStack">
-        		<interceptor-ref name="json">
-            		<param name="enableSMD">true</param>
-        		</interceptor-ref>
-    		</interceptor-stack>
-		</interceptors>
-		-->
+
 		<action name="Comments" class="org.sivaram.newsgroup.action.CommentsAction" method="getComments">
      		<result type="json">
      			<param name="root">commentlist</param>
@@ -77,10 +70,19 @@
 	</package>
 	
     <package name="default" namespace="/" extends="struts-default">
+		
 		<action name="Feed" class="org.sivaram.newsgroup.action.GenerateFeed" method="getFeed">
-    	     <result name="generated" type="dispatcher">/Home.jsp</result>
+    	     <result name="generated">/Snippet.jsp</result>
+    	     <!-- <result name="generated" type="json">
+    	     	<param name="root">articlelist</param>
+    	     </result> -->
     	     <result name="login" type="dispatcher">/Login.jsp</result>
     	</action>
+    	
+    	<action name="SmartFeed" class="" method="">
+    	     <result>/Smartfeed.jsp</result>
+    	</action>
+    	
 	</package>
     
  </struts>
