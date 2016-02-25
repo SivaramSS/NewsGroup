@@ -9,7 +9,7 @@ public class Article {
 	Date uldatetime;
 	int liked;
 	
-	   public int isLiked() {
+	   public int getLiked() {
 		return liked;
 	}
 	public void setLiked(int liked) {

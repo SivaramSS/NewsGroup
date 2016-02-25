@@ -44,7 +44,7 @@ public class FetchArticles {
 				Date temp = new Date(ts.getTime());
 				a.setUldatetime(temp);
 	    		a.setLiked(rs.getInt("liked"));
-	    		if(a.isLiked()==1)
+	    		if(a.getLiked()==1)
 	    			{
 	    				System.out.println("article : "+a.getAid() +" Liked : "+rs.getInt("liked"));
 	    			}
@@ -187,7 +187,7 @@ public class FetchArticles {
 				Date temp = new Date(ts.getTime());
 				a.setUldatetime(temp);
 	    		a.setLiked(rs.getInt("liked"));
-	    		if(a.isLiked()==1)
+	    		if(a.getLiked()==1)
 	    			{
 	    				System.out.println("article : "+a.getAid() +" Liked : "+rs.getInt("liked"));
 	    			}

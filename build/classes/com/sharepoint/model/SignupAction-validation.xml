@@ -1,0 +1,59 @@
+<!DOCTYPE validators PUBLIC "-//Apache Struts//XWork Validator 1.0.3//EN"
+    "http://struts.apache.org/dtds/xwork-validator-1.0.3.dtd">
+    
+    <validators>
+    
+    	<field name="fname">
+    		<field-validator type="requiredstring">
+    			<param name="trim">true</param>
+    			<message>First Name cannot be empty</message>
+    		</field-validator>
+    	</field>
+    	
+    	<field name="lname">
+    		<field-validator type="requiredstring">
+    			<param name="trim">true</param>
+    			<message>Last Name cannot be empty</message>
+    		</field-validator>
+    	</field>
+    	
+    	<field name="email">
+    		<field-validator type="requiredstring">
+    			<param name="trim">true</param>
+    			<message>Email id cannot be empty</message>
+    		</field-validator>
+    		<field-validator type="email">
+    			<param name="trim">true</param>
+    			<message>Invalid Email format</message>
+    		</field-validator>
+    	</field>
+    	
+    	<field name="password">
+    		<field-validator type="requiredstring">
+    			<param name="trim">true</param>
+    			<message>Password Cannot be empty</message>
+    		</field-validator>
+    	</field>
+    	
+    	<field name="cp">
+ 			<field-validator type="requiredstring">
+ 				<param name="trim">true</param>
+ 				<message>Confirm password cannot be empty</message>
+ 			</field-validator>
+    	</field>
+    	
+    	<field name="dob2">
+    		<field-validator type="date">
+    			<param name="min">01/01/1930</param>
+    			<param name="max">01/01/2016</param>
+    			<message>Invalid Date format</message>
+    		</field-validator>
+    	</field>
+    	
+    	<field name="cp">
+			<field-validator type="fieldexpression">
+    			<param name="expression"><![CDATA[password == cp]]></param>
+    			<message>Passwords do not match</message>
+    		</field-validator>    	
+    	</field>
+    </validators>

@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.dispatcher.SessionMap;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.SessionAware;
+import org.apache.struts2.interceptor.validation.SkipValidation;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.sharepoint.services.CheckLogin;
@@ -17,7 +18,6 @@ public class LoginAction extends ActionSupport implements SessionAware, ServletR
 	SessionMap<String,Object> sessionMap;
 	private User user = new User();
 	private static String SUCCESS = "success", LOGIN = "login";
-    private boolean logoutval;
     HttpServletRequest request;
     String loginflag;
     
@@ -36,18 +36,11 @@ public class LoginAction extends ActionSupport implements SessionAware, ServletR
 			  		sessionMap.put("user", user.getUserid()+"");
 			  		return SUCCESS;
 				}
-			else
-				return LOGIN;
+			else {
+				addFieldError("user.email","Invalid Email or Password");
+				return INPUT;
+			}
 	   }
-	}
-
-	public String logout()
-	{
-     sessionMap.remove("user");
-	 if(sessionMap.containsKey("user"))
-		 return "feed";
-	 
-	 return SUCCESS;	
 	}
 	
 	@Override
@@ -66,14 +59,6 @@ public class LoginAction extends ActionSupport implements SessionAware, ServletR
 
 	public void setLoginflag(String loginflag) {
 		this.loginflag = loginflag;
-	}
-
-	public boolean isLogoutval() {
-		return logoutval;
-	}
-
-	public void setLogoutval(boolean logoutval) {
-		this.logoutval = logoutval;
 	}
 
 	public User getUser() {

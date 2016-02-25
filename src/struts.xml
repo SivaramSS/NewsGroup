@@ -5,15 +5,18 @@
 <struts>
 
 	<package name="user" namespace="/" extends="struts-default">
+	    <action name="SessionCheck" class="com.sharepoint.model.SessionAction">
+	    	<result name="login">/WEB-INF/Login.jsp</result>
+	    	<result name="feed">/SmartFeed</result>
+	    </action>
 	    
     	<action name="Login" class="com.sharepoint.model.LoginAction">
              <result name="success" type="redirect">/SmartFeed</result>
-             <result name="login">/WEB-INF/Login.jsp</result>
              <result name="input">/WEB-INF/Login.jsp</result>
          </action>
          
          <action name="Signup" class="com.sharepoint.model.SignupAction" method="createAccount">
-             <result name="success" type="redirect">/WEB-INF/newuser.jsp</result>
+             <result name="success">/WEB-INF/newuser.jsp</result>
              <result name="input">/WEB-INF/Login.jsp</result>
          </action>
          
@@ -25,7 +28,7 @@
      		 <result name="generated">/WEB-INF/Post.jsp</result>
      	</action>
      	
-     	<action name="Logout" class="com.sharepoint.model.LoginAction" method="logout">
+     	<action name="Logout" class="com.sharepoint.model.LogoutAction" method="logout">
      		<result name="success">/WEB-INF/Login.jsp</result>
      		<result name="feed">/SmartFeed</result>
      		<result name="input">/WEB-INF/Login.jsp</result>
@@ -80,4 +83,62 @@
     	
 	</package>
     
+    <package name="mobile" namespace="/" extends="struts-default,json-default">
+    
+    	<action name="mLogin" class="com.sharepoint.mobile.Login" method="checkLogin">
+    		<result type="json" name="success"> 
+    			<param name="root">user</param>
+    		</result>
+    	</action>
+    	
+    	<action name="mFeed" class="com.sharepoint.mobile.Feed" method="getFeed">
+    		<result type="json" name="generated">
+    			<param name="root">articlelist</param>
+    		</result>
+    	</action>
+    	
+    	<action name="mGetComments" class="com.sharepoint.mobile.Comments" method="getComments">
+    		<result type="json" name="success">
+    			<param name="root">commentlist</param>
+    		</result>
+    	</action>
+    	
+    	<action name="mInsertComment" class="com.sharepoint.mobile.Comments" method="insertComment">
+    		<result type="stream" name="done">
+    			<param name="root">inputStream</param>
+    		</result>
+    	</action>
+    	
+    	<action name="mLike" class="com.sharepoint.mobile.Like" method="setLiked">
+    		<result type="stream" name="success">
+    			<param name="root">inputStream</param>
+    		</result>
+    	</action>
+    	
+    	<action name="mShare" class="com.sharepoint.mobile.Share" method="share">
+    		<result type="json" name="generated">
+    			<param name="root">article</param>
+    		</result>
+    	</action>
+    	
+    	<action name="mProfile" class="com.sharepoint.mobile.Profile" method="getProfile">
+    		<result type="json" name="success">
+    			<param name="user">user</param>
+    			<param name="articlelist">articlelist</param>
+    		</result>
+    	</action>
+    	
+    	<action name="mFullPost" class="com.sharepoint.mobile.FullPost" method="viewPost">
+    		<result type="json" name="show">
+    			<param name="root">post</param>
+    		</result>
+    	</action>
+    	
+    	<action name="mSignup" class="com.sharepoint.mobile.Signup" method="createAccount">
+    		<result type="json" name="created">
+    			<param name="root">user</param>
+    		</result>
+    	</action>
+    	
+    </package>
  </struts>

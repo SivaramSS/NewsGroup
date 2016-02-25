@@ -1,11 +1,19 @@
 package com.sharepoint.model;
 
-import org.apache.struts2.components.Date;
+import java.util.Date;
 
 
 public class User {
 
 	String userid, email, password, cp, fname, lname, dob,postsCount;
+	Date dob2;
+	
+	public Date getDob2() {
+		return dob2;
+	}
+	public void setDob2(Date dob2) {
+		this.dob2 = dob2;
+	}
 	
 	public String getPostsCount() {
 		return postsCount;

@@ -57,7 +57,7 @@ public class GenerateFeed extends ActionSupport implements SessionAware, Servlet
 		   if(articlelist.size()==0)
 		   {
 			   Article a = new Article();
-			   a.setUrl("No Articles to show");
+			   a.setTitle("No Articles to show");
 			   articlelist.add(a);
 		   }
 		   

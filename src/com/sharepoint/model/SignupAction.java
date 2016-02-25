@@ -24,48 +24,18 @@ public class SignupAction extends ActionSupport implements SessionAware, ModelDr
 		 sessionMap = (SessionMap<String,Object>) map;
 	}
 
-	public User getuser() {
+	public User getUser() {
 		return user;
 	}
 
-	public void setuser(User user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
     
-	public void validate()
-	{
-		user.setEmail(user.getEmail().trim());
-		user.setPassword(user.getPassword().trim());
-		user.setFname(user.getFname().trim());
-		user.setLname(user.getLname().trim());
-		user.setDob(user.getDob().trim());
-		
-		if( StringUtils.isEmpty(user.getEmail()) )
-			addFieldError("email", " id cannot be blank");
-		if( StringUtils.isEmpty(user.getPassword()) )
-			addFieldError("password", "Password cannot be blank");
-		if( StringUtils.isEmpty(user.getFname()) )
-			addFieldError("fname", "First name cannot be blank");
-		if( StringUtils.isEmpty(user.getLname()) )
-			addFieldError("lname", "Last name cannot be blank");
-		if( !user.getPassword().toString().equals(user.getCp()) )
-			addFieldError("cp","Password does not match");
-		if( user.getDob().toString().isEmpty() )
-			addFieldError("dob", "Birthday cannot be blank");
-		if( !(user.getEmail().contains("@") || user.getEmail().contains(".")) )
-			addFieldError("user.email","Invalid Email Format");
-		
-		user.setEmail(user.getEmail().replaceAll("[-+^=;]",""));
-		user.setPassword(user.getPassword().replaceAll("[-+^=;]",""));
-		user.setFname(user.getFname().replaceAll("[-+^=;]",""));
-		user.setLname(user.getLname().replaceAll("[-+^=;]", ""));
-		
-	}
-	
 	public String createAccount()
 	{   
 	   	System.out.println("SignupAction : Creating Account");
-	   	Date d = Date.valueOf(user.getDob());
+	   	System.out.println("Date entered : "+user.getDob2().toString());
 	   	int flag=0;
 	   	Connection con = null;
 	   	
@@ -78,6 +48,7 @@ public class SignupAction extends ActionSupport implements SessionAware, ModelDr
 	   	  ps.setString(2, user.getPassword());
 	   	  ps.setString(3, user.getFname());
 	   	  ps.setString(4, user.getLname());
+	   	  java.sql.Date d = new Date(user.getDob2().getTime());
 	   	  ps.setDate(5, d);
 	   	  flag = ps.executeUpdate();
 	   	}

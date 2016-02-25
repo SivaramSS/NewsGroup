@@ -69,7 +69,7 @@
 	  else
 	  {
 	%>
-	   <s:action name="Login" namespace="/" executeResult="true"></s:action>
+	   <s:action name="SessionCheck" namespace="/" executeResult="true"></s:action>
 	<%
 	  }
 	%>
