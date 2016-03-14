@@ -24,3 +24,10 @@ a:hover {
   left: 200;
   right : auto;
 }
+
+.headerdiv {
+    background-color : #003366;
+    width : 100%;	
+	display : inline-block;
+}
+

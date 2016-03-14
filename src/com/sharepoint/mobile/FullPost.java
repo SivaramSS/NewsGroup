@@ -24,7 +24,7 @@ public class FullPost extends ActionSupport implements ServletRequestAware, Serv
 	{
 		String aid = request.getParameter("aid");
 		String userid = request.getParameter("userid");
-		
+		System.out.println("Full post : aid : "+aid+" userid : "+userid);
 		setPost(FetchArticles.fetchPost(aid, userid));
 		return "show";
 	}

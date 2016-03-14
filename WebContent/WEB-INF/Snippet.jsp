@@ -18,8 +18,14 @@
 }
 </style>
 </head>
-
+<s:if test="%{articlecount==0}">
+	<div>
+		<h1 style="color:#d3d3d3">No articles to show</h1>
+	</div>
+</s:if>
+<s:else>
 <s:iterator value="articlelist" var="article" status="incr"> 
+		
     		  <div style="background: #ffffff; margin-left:2%; margin-right: 2%; margin-top:4%; border-radius:2%;">
     		    <div align="left" style="padding:20px;">
     		    	
@@ -47,6 +53,7 @@
     				<s:set var="comsec">comsection<s:property value="#article.aid"/></s:set>
     				<s:set var="likesec">likesection<s:property value="#article.aid"/></s:set>
     				<s:set var="comcount">comcount<s:property value="#article.aid"/></s:set>
+    				<s:set var="wholike">wholikesection<s:property value="#article.aid"/></s:set>
     				
     				<div align="right" style="padding-right:2%;">
     					Shared on <s:a href="javascript:;" onclick="viewFullPost('%{#aid}');"><s:property value="#article.uldatetime"/></s:a>
@@ -54,11 +61,13 @@
     				
     				<s:if test="%{#countlikes>0}">
     					<div align="left" id="<s:property value="%{#likesec}"/>" class="<s:property value="%{#likesec}"/>" style="display:block;" >
-    						<s:property value="#article.count_likes"/> like this 
+    						<s:a href="javascript:;" onmouseout="hide('%{#wholike}');" onmouseover="showwholikes('%{#aid}','%{#wholike}');"> <s:property value="#article.count_likes"/> like this</s:a> 
+    						<span id="<s:property value="%{wholike}"/>" class="<s:property value="%{wholike}"/>"></span>
     					</div>
     				</s:if><s:else>
     					<div align="left" id="<s:property value="%{#likesec}"/>" class="<s:property value="%{#likesec}"/>" style="display:none;" >
-    						<s:property value="#article.count_likes"/> like this 
+    						<s:a href="javascript:;" onmouseout="hide('%{#wholike}');" onmouseover="showwholikes('%{#aid}','%{#wholike}');"> <s:property value="#article.count_likes"/> like this</s:a> 
+    						<span id="<s:property value="%{wholike}"/>" class="<s:property value="%{wholike}"/>"></span>
     					</div>
     				</s:else>
     				
@@ -81,3 +90,4 @@
    </div>
  </div>
 </s:iterator>
+</s:else>

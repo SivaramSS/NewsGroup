@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="comment" namespace="/" extends="json-default">
+
+		<action name="Comments" class="com.sharepoint.model.CommentsAction" method="getComments">
+     		<result name="success">/WEB-INF/Comments.jsp</result>
+     	</action>
+     	
+     	<action name="InsertComment" class="com.sharepoint.model.CommentsAction" method="insertComment">
+     		<result type="stream" name="done">
+				<param name="root">inputStream</param>     		
+     		</result>
+     	</action>
+     	
+     	<action name="GetCommentsCount" class="com.sharepoint.model.CommentsAction" method="getCommentsCount">
+     		<result type="stream" name="done">
+     			<param name="root">inputStream</param>
+     		</result>
+     	</action>
+	</package>
+</struts>	

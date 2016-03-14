@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="user" namespace="/" extends="struts-default">
+	    <action name="SessionCheck" class="com.sharepoint.model.SessionAction">
+	    	<result name="login">/WEB-INF/Login.jsp</result>
+	    	<result name="feed">/SmartFeed</result>
+	    </action>
+	    
+    	<action name="Login" class="com.sharepoint.model.LoginAction">
+             <result name="success" type="redirect">/SmartFeed</result>
+             <result name="input">/WEB-INF/Login.jsp</result>
+         </action>
+         
+         <action name="Signup" class="com.sharepoint.model.SignupAction" method="createAccount">
+             <result name="success">/WEB-INF/newuser.jsp</result>
+             <result name="input">/WEB-INF/Login.jsp</result>
+         </action>
+         
+         <action name="Profile" class="com.sharepoint.model.ProfileAction" method="getProfile">
+     	 	 <result name="success">/WEB-INF/Profile.jsp</result>
+     	</action>  	
+     	
+     	<action name="Share" class="com.sharepoint.model.ShareAction" method="shareArticle">
+     		 <result name="generated">/WEB-INF/Post.jsp</result>
+     	</action>
+     	
+     	<action name="Logout" class="com.sharepoint.model.LogoutAction" method="logout">
+     		<result name="success">/WEB-INF/Login.jsp</result>
+     		<result name="feed">/SmartFeed</result>
+     		<result name="input">/WEB-INF/Login.jsp</result>
+     	</action>
+     	
+     	<action name="LikeUnlike" class="com.sharepoint.model.LikeAction" method="setLiked">
+     		<result type="stream" name="success">
+     			<param name="root">inputStream</param>
+     		</result>
+     	</action>
+     	
+     	<action name="GetLikesCount" class="com.sharepoint.model.LikeAction" method="getLikesCount">
+     		<result type="stream" name="success">
+     			<param name="root">inputStream</param>
+     		</result>
+     	</action>
+     	
+     	<action name="ViewPost" class="com.sharepoint.model.ViewPostAction" method="viewPost">
+     		<result name="show">/WEB-INF/FullPost.jsp</result>
+     	</action>
+     	
+     	<action name="Wholikes" class="com.sharepoint.model.LikeAction" method="getLikeslist">
+     		<result name="show">/WEB-INF/wholikes.jsp</result>
+     	</action>
+    </package>
+</struts>    

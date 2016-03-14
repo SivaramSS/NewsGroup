@@ -8,23 +8,42 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Map;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.struts2.dispatcher.SessionMap;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
-import org.apache.struts2.interceptor.SessionAware;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.sharepoint.model.User;
+import com.sharepoint.services.LikeService;
 
 public class Like extends ActionSupport implements ServletRequestAware, ServletResponseAware {
 	HttpServletRequest request;
 	HttpServletResponse response;
 	private InputStream inputStream;
+	List<String> likerlist;
+	List<User> withuserid;
 	
+	
+	public List<User> getWithuserid() {
+		return withuserid;
+	}
+
+	public void setWithuserid(List<User> withuserid) {
+		this.withuserid = withuserid;
+	}
+
+	public List<String> getLikerlist() {
+		return likerlist;
+	}
+
+	public void setLikerlist(List<String> likerlist) {
+		this.likerlist = likerlist;
+	}
+
 	public InputStream getInputStream() {
 		return inputStream;
 	}
@@ -129,9 +148,15 @@ public class Like extends ActionSupport implements ServletRequestAware, ServletR
 		  	{
 			  e.printStackTrace();
 		  	}
-		  
 	  }
 	  
 	  return "success";
+	}
+	
+	public String getLikerslist()
+	{
+		String aid = request.getParameter("aid");
+		setWithuserid(LikeService.getNamesofLikersWithUserid(aid));
+		return "show";
 	}
 }

@@ -5,16 +5,16 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.struts.action.Action;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 
+import com.opensymphony.xwork2.ActionSupport;
 import com.sharepoint.model.Article;
 import com.sharepoint.model.User;
 import com.sharepoint.services.FetchArticles;
 import com.sharepoint.services.FetchProfile;
 
-public class Profile extends Action implements ServletRequestAware,ServletResponseAware {
+public class Profile extends ActionSupport implements ServletRequestAware,ServletResponseAware {
     
 	String username;
 	User user;
@@ -41,11 +41,12 @@ public class Profile extends Action implements ServletRequestAware,ServletRespon
 	public String getProfile()
 	{   
 		System.out.println("In Profile Action");
+		String id = request.getParameter("id");
 		String userid = request.getParameter("userid");
 		FetchProfile profile = new FetchProfile();
 		profile.getProfile(userid);
 		user = profile.getUser();
-		articlelist = FetchArticles.fetchArticlesByUserId(userid);
+		articlelist = FetchArticles.fetchArticlesByUserId(id,userid);
 		return "success";
 	}
 

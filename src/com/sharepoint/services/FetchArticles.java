@@ -116,7 +116,7 @@ public class FetchArticles {
 	  return a;
 	}
 	
-	public static List<Article> fetchArticlesByUserId(String userid)
+	public static List<Article> fetchArticlesByUserId(String id,String userid)
 	{
 		List<Article> articlelist = new ArrayList<Article>();
 		Connection con = null;
@@ -127,7 +127,7 @@ public class FetchArticles {
 			con = DriverManager.getConnection("jdbc:mysql://localhost/newsgroupdb","root","axess");
 			PreparedStatement ps = con.prepareStatement("select a.aid,url,fname,lname,uldatetime,(select count(*) from likes l where l.aid = a.aid) as countlikes, (select count(*) from comments c where c.aid=a.aid) as countcomments, (select count(*) from likes l where l.userid=? and l.aid=a.aid) as liked, ac.title, ac.content from profile p, article a, articlecontent ac where p.userid=a.userid and a.userid=? and a.aid = ac.aid");
 			ps.setString(1, userid);
-			ps.setString(2, userid);
+			ps.setString(2, id);
 			rs = ps.executeQuery();
 			while(rs.next())
 			{

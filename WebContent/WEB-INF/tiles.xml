@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+   "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+   "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+   
+   <tiles-definitions>
+		
+		<definition name="base" template="/WEB-INF/base.jsp">
+			<put-attribute name="title" value="Title"/>
+			<put-attribute name="header" value="/WEB-INF/header.jsp"/>
+			<put-attribute name="body" value="/WEB-INF/Smartfeed.jsp"/>
+		</definition>
+		
+		<definition name="feeddef" extends="base">
+			<put-attribute name="title" value="Feed" />
+			<put-attribute name="header" value="/WEB-INF/header.jsp"/>
+			<put-attribute name="body" value="/WEB-INF/Smartfeed.jsp"/>
+		</definition>
+		
+		<definition name="login" extends="base">
+			<put-attribute name="title" value="Login"/>
+			<put-attribute name="header" value=""/>
+			<put-attribute name="body" value="/WEB-INF/Login.jsp"/>
+ 		</definition>
+ 		
+		<definition name="profile" extends="base">
+			<put-attribute name="title" value="Profile"/>
+			<put-attribute name="header" value="/WEB-INF/header.jsp"/>
+			<put-attribute name="body" value="/WEB_INF/Profile.jsp"/>
+		</definition>
+		
+   </tiles-definitions>

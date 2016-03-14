@@ -7,8 +7,5 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>SharePoint</title>
 </head>
-<body style="background: #d3d3d3;">
    <s:action name="SmartFeed" namespace="/" executeResult="true">
    </s:action>
-</body>
-</html>

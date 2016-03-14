@@ -5,16 +5,16 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.struts.action.Action;
 import org.apache.struts2.dispatcher.SessionMap;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.SessionAware;
 
+import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 import com.sharepoint.services.FetchArticles;
 import com.sharepoint.services.FetchProfile;
 
-public class ProfileAction extends Action implements SessionAware, ServletRequestAware, ModelDriven {
+public class ProfileAction extends ActionSupport implements SessionAware, ServletRequestAware, ModelDriven {
     
 	String username;
 	User user;
@@ -43,11 +43,12 @@ public class ProfileAction extends Action implements SessionAware, ServletReques
 		System.out.println("In Profile Action");
 		System.out.println(sessionMap.get("user"));
 		String userid = new String();
+		String id = new String();
 		if(request.getParameter("id").toString().equals("own"))
-			userid = sessionMap.get("user").toString();
+			id = sessionMap.get("user").toString();
 		else
-			userid = request.getParameter("id").toString();
-		
+			id = request.getParameter("id").toString();
+		userid = sessionMap.get("user").toString();
 		FetchProfile profile = new FetchProfile();
 		profile.getProfile(userid);
 		user = profile.getUser();
@@ -55,7 +56,7 @@ public class ProfileAction extends Action implements SessionAware, ServletReques
 			user.setEmail("");
 		//if(request.getParameter("id"))
 		System.out.println(request.getParameter("id"));
-		articlelist = FetchArticles.fetchArticlesByUserId(userid);
+		articlelist = FetchArticles.fetchArticlesByUserId(id,userid);
 		return "success";
 	}
 

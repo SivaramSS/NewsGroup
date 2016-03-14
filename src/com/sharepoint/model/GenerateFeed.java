@@ -22,6 +22,17 @@ public class GenerateFeed extends ActionSupport implements SessionAware, Servlet
 	List<Article> articlelist;
 	HttpServletRequest request;
 	HttpServletResponse response;
+	int articlecount;
+	
+	
+	public int getArticlecount() {
+		return articlecount;
+	}
+
+	public void setArticlecount(int articlecount) {
+		this.articlecount = articlecount;
+	}
+
 	public String getFname() {
 		return fname;
 	}
@@ -56,11 +67,10 @@ public class GenerateFeed extends ActionSupport implements SessionAware, Servlet
 		   System.out.println(articlelist.size()+ " articles present");
 		   if(articlelist.size()==0)
 		   {
-			   Article a = new Article();
-			   a.setTitle("No Articles to show");
-			   articlelist.add(a);
+			  setArticlecount(0); 
 		   }
-		   
+		   else
+			   setArticlecount(articlelist.size());
 		   System.out.println("In GenerateFeed Class - result : Generated");
 		   return "generated";
 	    }

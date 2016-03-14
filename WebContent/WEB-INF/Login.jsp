@@ -12,6 +12,10 @@
 	margin-left : 1%;
 }
 </style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js">
+</script>
+
 <sx:head/>
 </head>
 
@@ -22,7 +26,7 @@
 	
     <div id="cover">
     		<h3>Login</h3>
-    		<s:form name="getin" method = "POST" action = "/Login">
+    		<s:form name="getin" method = "POST" namespace="/" action = "Login" validate="true">
        			<s:textfield key="user.email" label="Email Id" />
        			<s:password key="user.password" label="Password"/>
        			<s:hidden key="loginflag" value="true"/>
@@ -31,7 +35,7 @@
     		<div>
     		<h3>Or Create a New Account </h3>
     		</div>
-    		<s:form name="createacc" method = "POST" action = "/Signup">
+    		<s:form name="createacc" method = "POST" namespace="/" action = "Signup" validate="true">
     			<s:textfield key="fname" label="Enter first name" value=""/>
     			<s:textfield key="lname" label="Enter last name" value=""/>
     			<s:textfield key="email" label="Enter email id" value=""/>
