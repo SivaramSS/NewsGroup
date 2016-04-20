@@ -1,18 +1,20 @@
 package com.sharepoint.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Article {
 
-	String userid, fname, lname, url, title, content, aid;
+	String userid, fname, lname, url, title, content, aid,profileurl;
 	int count_likes, count_comments;
 	Date uldatetime;
-	int liked;
+	ArrayList<String> likerlist;
+	boolean liked;
 	
-	   public int getLiked() {
+	public boolean getLiked() {
 		return liked;
 	}
-	public void setLiked(int liked) {
+	public void setLiked(boolean liked) {
 		this.liked = liked;
 	}
 	public String getTitle() {
@@ -76,6 +78,18 @@ public class Article {
 	}
 	public void setCount_comments(int count_comments) {
 		this.count_comments = count_comments;
+	}
+	public String getProfileurl() {
+		return profileurl;
+	}
+	public void setProfileurl(String profileurl) {
+		this.profileurl = profileurl;
+	}
+	public ArrayList<String> getLikerlist() {
+		return likerlist;
+	}
+	public void setLikerlist(ArrayList<String> likerlist) {
+		this.likerlist = likerlist;
 	}
 	   
 }

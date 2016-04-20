@@ -28,7 +28,7 @@
     		</field-validator>
     	</field>
     	
-    	<field name="password">
+    	<field name="pass">
     		<field-validator type="requiredstring">
     			<param name="trim">true</param>
     			<message>Password Cannot be empty</message>
@@ -52,7 +52,7 @@
     	
     	<field name="cp">
 			<field-validator type="fieldexpression">
-    			<param name="expression"><![CDATA[password == cp]]></param>
+    			<param name="expression"><![CDATA[pass == cp]]></param>
     			<message>Passwords do not match</message>
     		</field-validator>    	
     	</field>

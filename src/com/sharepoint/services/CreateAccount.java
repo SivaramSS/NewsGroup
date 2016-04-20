@@ -10,7 +10,7 @@ import com.sharepoint.model.User;
 
 public class CreateAccount {
 	
-	public boolean create(User user)
+	public boolean create(User user,String pass)
 	{
 		boolean flag=false;
 	   	Connection con = null;
@@ -20,7 +20,7 @@ public class CreateAccount {
 	   	  con = DriverManager.getConnection("jdbc:mysql://localhost/newsgroupDB","root","axess");
 	   	  PreparedStatement ps = con.prepareStatement("INSERT into profile(userid,email,password,fname,lname,dob) values(null,?,?,?,?,?)" );
 	   	  ps.setString(1, user.getEmail());
-	   	  ps.setString(2, user.getPassword());
+	   	  ps.setString(2, pass);
 	   	  ps.setString(3, user.getFname());
 	   	  ps.setString(4, user.getLname());
 	   	  java.sql.Date d = Date.valueOf(user.getDob());

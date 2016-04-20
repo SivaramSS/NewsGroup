@@ -22,12 +22,13 @@ import org.apache.struts2.interceptor.SessionAware;
 import com.opensymphony.xwork2.ActionSupport;
 import com.sharepoint.services.LikeService;
 
-public class LikeAction extends ActionSupport implements SessionAware, ServletRequestAware, ServletResponseAware {
+public class LikeAction extends ActionSupport implements SessionAware, UserAware, ServletRequestAware, ServletResponseAware {
 	HttpServletRequest request;
 	SessionMap<String,Object> sessionMap;
 	HttpServletResponse response;
 	private InputStream inputStream;
 	private List<String> likelist;
+	User user;
 	
 	public String setLiked()
 	{
@@ -94,5 +95,13 @@ public class LikeAction extends ActionSupport implements SessionAware, ServletRe
 	@Override
 	public void setSession(Map<String, Object> map) {
 		sessionMap = (SessionMap<String, Object>) map;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 }

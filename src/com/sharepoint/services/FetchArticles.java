@@ -43,15 +43,19 @@ public class FetchArticles {
 	    		java.sql.Timestamp ts = rs.getTimestamp("uldatetime");
 				Date temp = new Date(ts.getTime());
 				a.setUldatetime(temp);
-	    		a.setLiked(rs.getInt("liked"));
-	    		if(a.getLiked()==1)
+	    		a.setLiked(rs.getInt("liked")==1? true:false);
+	    		
+	    		if(a.getLiked())
 	    			{
 	    				System.out.println("article : "+a.getAid() +" Liked : "+rs.getInt("liked"));
 	    			}
+	    		
 	    		a.setTitle(rs.getString("title"));
 	    		String content = rs.getString("content");
-	    		content = content.substring(0, 600);
+	    		content = content.substring(0, 800);
 	    		a.setContent(content);
+	    		a.setProfileurl("user/"+a.getUserid());
+	    		a.setLikerlist(LikeService.getNamesofLikers(a.getAid()));
 	    		articlelist.add(a);
 	    	}
 	    
@@ -61,11 +65,13 @@ public class FetchArticles {
 	    {
 	     e.printStackTrace();	
 	    }
+	    
 	    finally {
 	    	
 	    	try {
 				rs.close();
 				con.close();
+				System.out.println("connection closed");
 			} 
 	    	catch (SQLException e) {
 				e.printStackTrace();
@@ -100,7 +106,7 @@ public class FetchArticles {
 	    	  Timestamp ts = rs.getTimestamp("uldatetime");
 	    	  Date temp = new Date(ts.getTime());
 	    	  a.setUldatetime(temp);
-	    	  a.setLiked(rs.getInt("liked"));
+	    	  a.setLiked(rs.getInt("liked")==1?true:false);
 	    	  a.setFname(rs.getString("fname"));
 	    	  a.setLname(rs.getString("lname"));
 	    	  a.setCount_likes(rs.getInt("countlikes"));
@@ -110,8 +116,15 @@ public class FetchArticles {
 	    	}
 	  }
 	  catch(Exception e)
-	  {
+	  {		
 		  e.printStackTrace();
+	  }
+	  
+	  finally {
+		  try{
+			  if(con!=null) {con.close();rs.close();System.out.println("Connection closed");}
+		  }
+		  catch(Exception eas) {eas.printStackTrace();}
 	  }
 	  return a;
 	}
@@ -139,7 +152,7 @@ public class FetchArticles {
 				a.setUrl(rs.getString("url"));
 				a.setCount_likes(rs.getInt("countlikes"));
 				a.setCount_comments(rs.getInt("countcomments"));
-				a.setLiked(rs.getInt("liked"));
+				a.setLiked(rs.getInt("liked")==1?true:false);
 				Timestamp ts = rs.getTimestamp("uldatetime");
 				Date temp = new Date(ts.getTime());
 				a.setUldatetime(temp);
@@ -152,9 +165,16 @@ public class FetchArticles {
 		}
 		
 		catch(Exception e)
-		{
+		{	
 		   e.printStackTrace();
 		}
+		
+		finally {
+			  try{
+				  if(con!=null) {con.close();rs.close();System.out.println("Connection closed");}
+			  }
+			  catch(Exception eas) {eas.printStackTrace();}
+		  }
 		
 		return articlelist;
 	}
@@ -186,8 +206,8 @@ public class FetchArticles {
 	    		java.sql.Timestamp ts = rs.getTimestamp("uldatetime");
 				Date temp = new Date(ts.getTime());
 				a.setUldatetime(temp);
-	    		a.setLiked(rs.getInt("liked"));
-	    		if(a.getLiked()==1)
+	    		a.setLiked(rs.getInt("liked")==1?true:false);
+	    		if(a.getLiked())
 	    			{
 	    				System.out.println("article : "+a.getAid() +" Liked : "+rs.getInt("liked"));
 	    			}
@@ -195,12 +215,20 @@ public class FetchArticles {
 	    		String content = rs.getString("content");
 	    		content = content.substring(0, 600);
 	    		a.setContent(content);
+	    		a.setLikerlist(LikeService.getNamesofLikers(a.getAid()));
 	    	}
 	    
 	    }
 	    catch(Exception e)
 		  {
 			  e.printStackTrace();
+		  }
+	    
+	    finally {
+			  try{
+				  if(con!=null) {con.close();rs.close();System.out.println("Connection closed");}
+			  }
+			  catch(Exception eas) {eas.printStackTrace();}
 		  }
 		  return a;
 	}

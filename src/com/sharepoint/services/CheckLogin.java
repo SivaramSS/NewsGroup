@@ -22,12 +22,11 @@ public class CheckLogin {
 		this.userob = userob;
 	}
 
-	public boolean authenticate(User user)
+	public boolean authenticate(User user,String pass)
 	{ 
 	    boolean ret  = false;
 	    Connection conn = null;
 	    ResultSet rs = null;
-	    System.out.println("Checking Login" + user.getEmail() +" "+user.getPassword());
 	    
 	    try
 	    {
@@ -40,7 +39,7 @@ public class CheckLogin {
 	      
 	      ps.setString(1,user.getEmail());
 	      
-	      ps.setString(2, user.getPassword());
+	      ps.setString(2, pass);
 	      
 	      rs = ps.executeQuery();
 	      

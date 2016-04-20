@@ -13,12 +13,13 @@ import org.apache.struts2.interceptor.SessionAware;
 import com.opensymphony.xwork2.ActionSupport;
 import com.sharepoint.services.FetchArticles;
 
-public class ViewPostAction extends ActionSupport implements SessionAware, ServletRequestAware, ServletResponseAware {
+public class ViewPostAction extends ActionSupport implements SessionAware,UserAware, ServletRequestAware, ServletResponseAware {
 
 	HttpServletRequest request;
 	HttpServletResponse response;
 	SessionMap<String,Object> sessionMap;
 	Article post;
+	User user;
 	
 	public String viewPost()
 	{
@@ -51,6 +52,12 @@ public class ViewPostAction extends ActionSupport implements SessionAware, Servl
 	public void setSession(Map<String, Object> map) {
 	   sessionMap = (SessionMap<String, Object>) map;
 	}
-	
-	
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 }

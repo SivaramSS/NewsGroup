@@ -1,12 +1,21 @@
 package com.sharepoint.model;
 
 import java.util.Date;
+import java.util.Map;
+
+import org.apache.struts2.dispatcher.SessionMap;
+import org.apache.struts2.interceptor.SessionAware;
+
+import com.opensymphony.xwork2.ActionSupport;
+import com.sharepoint.services.FetchProfile;
 
 
-public class User {
+public class User implements SessionAware{
 
-	String userid, email, password, cp, fname, lname, dob,postsCount;
+	String userid, email,fname, lname, dob,postsCount,profileurl;
+	SessionMap<String,Object> sessionMap;
 	Date dob2;
+	User instance;
 	
 	public Date getDob2() {
 		return dob2;
@@ -21,12 +30,6 @@ public class User {
 	public void setPostsCount(String postsCount) {
 		this.postsCount = postsCount;
 	}
-	public String getCp() {
-		return cp;
-	}
-	public void setCp(String cp) {
-		this.cp = cp;
-	}
 	
 	public String getUserid() {
 		return userid;
@@ -40,12 +43,7 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
+	
 	public String getFname() {
 		return fname;
 	}
@@ -64,5 +62,39 @@ public class User {
 	public void setDob(String dob) {
 		this.dob = dob;
 	}
+	public String getProfileurl() {
+		return profileurl;
+	}
+	public void setProfileurl(String profileurl) {
+		this.profileurl = profileurl;
+	}
 	
+	public User getInstance() {
+		return instance;
+	}
+	
+	public void setInstance(User instance) {
+		this.instance = instance;
+	}
+	
+	public User getUserObject(String userid)
+	{
+		FetchProfile fp = new FetchProfile();
+		fp.getProfile(userid);
+		User temp = fp.getUser();
+		return temp;
+	}
+	
+	public String execute()
+	{
+		String userid = sessionMap.get("user").toString();
+		setInstance(getUserObject(userid));
+		System.out.println("In User getting instance "+instance.getEmail());
+		return "success";
+	}
+	
+	@Override
+	public void setSession(Map<String, Object> map) {
+		sessionMap = (SessionMap<String,Object>) map;
+	}
 }

@@ -24,6 +24,7 @@
 	</div>
 </s:if>
 <s:else>
+
 <s:iterator value="articlelist" var="article" status="incr"> 
 		
     		  <div style="background: #ffffff; margin-left:2%; margin-right: 2%; margin-top:4%; border-radius:2%;">

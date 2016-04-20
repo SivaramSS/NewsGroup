@@ -23,12 +23,13 @@ import org.apache.struts2.interceptor.SessionAware;
 import com.opensymphony.xwork2.ActionSupport;
 import com.sharepoint.services.CommentsService;
 
-public class CommentsAction extends ActionSupport implements SessionAware, ServletRequestAware, ServletResponseAware, Serializable {
+public class CommentsAction extends ActionSupport implements SessionAware, UserAware, ServletRequestAware, ServletResponseAware, Serializable {
 
 	SessionMap<String,Object> sessionMap;
 	HttpServletRequest request;
 	HttpServletResponse response;
 	InputStream inputStream;
+	User user;
 	
 	List<Comment> commentlist = new ArrayList<Comment>();
 	String aid;
@@ -124,6 +125,15 @@ public class CommentsAction extends ActionSupport implements SessionAware, Servl
 
 	public void setCommentlist(List<Comment> commentlist) {
 		this.commentlist = commentlist;
+	}
+
+	@Override
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public User getUser() {
+		return user;
 	}
 	
 	

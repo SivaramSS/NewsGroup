@@ -13,17 +13,15 @@ import org.apache.struts2.interceptor.SessionAware;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.sharepoint.services.FetchArticles;
-import com.sharepoint.services.FetchProfile;
 
-public class GenerateFeed extends ActionSupport implements SessionAware, ServletRequestAware, ServletResponseAware {
+public class GenerateFeed extends ActionSupport implements SessionAware, UserAware, ServletRequestAware, ServletResponseAware {
     
 	private SessionMap<String,Object> sessionMap;
-	String fname;
 	List<Article> articlelist;
 	HttpServletRequest request;
 	HttpServletResponse response;
 	int articlecount;
-	
+	User user;
 	
 	public int getArticlecount() {
 		return articlecount;
@@ -31,14 +29,6 @@ public class GenerateFeed extends ActionSupport implements SessionAware, Servlet
 
 	public void setArticlecount(int articlecount) {
 		this.articlecount = articlecount;
-	}
-
-	public String getFname() {
-		return fname;
-	}
-
-	public void setFname(String fname) {
-		this.fname = fname;
 	}
 
 	public List<Article> getArticlelist() {
@@ -59,9 +49,6 @@ public class GenerateFeed extends ActionSupport implements SessionAware, Servlet
 		
 	   if(sessionMap.get("user")!=null)
 		{
-		   FetchProfile profile = new FetchProfile();
-		   profile.getProfile(sessionMap.get("user").toString());
-		   setFname( profile.getUser().getFname());
 		   
 		   setArticlelist( FetchArticles.fetch(sessionMap.get("user").toString()) );
 		   System.out.println(articlelist.size()+ " articles present");
@@ -90,5 +77,14 @@ public class GenerateFeed extends ActionSupport implements SessionAware, Servlet
 	@Override
 	public void setServletRequest(HttpServletRequest request) {
 	  this.request = request;
+	}
+
+	@Override
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public User getUser() {
+		return user;
 	}
 }

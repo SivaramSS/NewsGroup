@@ -14,7 +14,7 @@ import com.opensymphony.xwork2.ModelDriven;
 import com.sharepoint.services.FetchArticles;
 import com.sharepoint.services.FetchProfile;
 
-public class ProfileAction extends ActionSupport implements SessionAware, ServletRequestAware, ModelDriven {
+public class ProfileAction extends ActionSupport implements SessionAware, UserAware, ServletRequestAware, ModelDriven {
     
 	String username;
 	User user;
@@ -43,20 +43,13 @@ public class ProfileAction extends ActionSupport implements SessionAware, Servle
 		System.out.println("In Profile Action");
 		System.out.println(sessionMap.get("user"));
 		String userid = new String();
-		String id = new String();
-		if(request.getParameter("id").toString().equals("own"))
-			id = sessionMap.get("user").toString();
-		else
-			id = request.getParameter("id").toString();
 		userid = sessionMap.get("user").toString();
 		FetchProfile profile = new FetchProfile();
 		profile.getProfile(userid);
 		user = profile.getUser();
-		if(!userid.equals(sessionMap.get("user").toString()))
+		if(!username.equals(sessionMap.get("user").toString()))
 			user.setEmail("");
-		//if(request.getParameter("id"))
-		System.out.println(request.getParameter("id"));
-		articlelist = FetchArticles.fetchArticlesByUserId(id,userid);
+		articlelist = FetchArticles.fetchArticlesByUserId(username,userid);
 		return "success";
 	}
 

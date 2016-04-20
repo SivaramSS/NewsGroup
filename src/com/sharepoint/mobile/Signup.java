@@ -39,9 +39,8 @@ public class Signup extends ActionSupport implements ServletRequestAware,Servlet
 	   	user.setEmail(request.getParameter("email"));
 	   	user.setFname(request.getParameter("fname"));
 	   	user.setLname(request.getParameter("lname"));
-	   	user.setPassword(request.getParameter("password"));
 	   	user.setDob(request.getParameter("dob"));
-	   	if(new CreateAccount().create(user)==true)
+	   	if(new CreateAccount().create(user,request.getParameter("password"))==true)
 	   		setUser(new FetchProfile().getProfileByEmail(user.getEmail()));
 	   	return "created";
 	}

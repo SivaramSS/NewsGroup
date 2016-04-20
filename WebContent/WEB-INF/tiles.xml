@@ -12,9 +12,9 @@
 		</definition>
 		
 		<definition name="feeddef" extends="base">
-			<put-attribute name="title" value="Feed" />
+			<put-attribute name="title" value="Sharepoint" />
 			<put-attribute name="header" value="/WEB-INF/header.jsp"/>
-			<put-attribute name="body" value="/WEB-INF/Smartfeed.jsp"/>
+			<put-attribute name="body" value="/WEB-INF/FeedAngular.jsp"/>
 		</definition>
 		
 		<definition name="login" extends="base">
@@ -26,7 +26,7 @@
 		<definition name="profile" extends="base">
 			<put-attribute name="title" value="Profile"/>
 			<put-attribute name="header" value="/WEB-INF/header.jsp"/>
-			<put-attribute name="body" value="/WEB_INF/Profile.jsp"/>
+			<put-attribute name="body" value="/WEB-INF/Profile.jsp"/>
 		</definition>
 		
    </tiles-definitions>

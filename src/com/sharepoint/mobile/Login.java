@@ -27,9 +27,8 @@ public class Login extends ActionSupport implements ServletRequestAware, Servlet
 		String password = request.getParameter("password");
 		User user = new User();
 		user.setEmail(email);
-		user.setPassword(password);
 		CheckLogin cl = new CheckLogin();
-		if(cl.authenticate(user)==true)
+		if(cl.authenticate(user,password)==true)
 			{
 				setUser(cl.getUserob());
 			}

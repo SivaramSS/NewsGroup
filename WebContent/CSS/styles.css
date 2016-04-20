@@ -3,6 +3,10 @@ a:hover {
   cursor:hand;
 }
 
+#cover {
+	margin-left : 1%;
+}
+
 #loading {
    width: 100%;
    height: 10%;
@@ -25,9 +29,220 @@ a:hover {
   right : auto;
 }
 
-.headerdiv {
-    background-color : #003366;
-    width : 100%;	
-	display : inline-block;
+.button {
+    padding:5px 15px; 
+    background:#003366; 
+    border:0 none;
+    color: #ffffff;
+    cursor:pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 5px; 
 }
 
+.pastebox {
+  width : 50%;
+  text-align : center;
+  font-size : 16px;
+  font-family : consolas;
+  color:#6f6f6f;
+  border: none;
+  border-bottom: solid 2px #c9c9c9;
+  transition: border 0.3s;
+}
+
+.pastebox input[type="text"]:focus,
+.pastebox input[type="text"].focus {
+  border-bottom: solid 2px #969696;
+}
+
+.headerdiv {
+    background-color : #5f5f5f;
+    width : 100%;	
+	display : inline-block;
+	top : 0px;
+	position : fixed;
+	box-shadow : 0px 4px 4px #8f8f8f;
+}
+
+.titleblock {
+	background-color : #efefef;
+}
+
+.title {
+	color : #252525;
+	padding-top: 1%;
+	margin-left : 1%; 
+}
+
+.box {
+	background-color : #efefef;
+}
+
+.content {
+	font-size : 18px;
+	font-family : helvetica;
+	padding-top: 1%;
+	margin-left : 3%;
+	margin-right: 2%; 
+}
+
+.hrline {
+	border-top : 1px solid #ccc;
+}
+
+.name {
+	font-size : 18px;
+	font-weight : bold;
+	color : #4f4f4f;
+}
+
+.namelabel {
+	font-size : 16px;
+	font-family: georgia;
+	color : #6f6f6f;
+	margin-top : 1%;
+	padding-top: 1%;
+	margin-left : 2%;
+	margin-right : 2%;
+}
+
+a {
+   text-decoration : none;
+}
+
+a:hover {
+	text-decoration : underline;
+}
+
+.timestamp {
+	font-size : 14px;
+	font-family: georgia;
+	color : #5f5f5f;
+	margin-left : 1%;
+	position : relative;
+	top : -10px;
+	padding : 0px;
+}
+
+.commentbox {
+	background-color : #efefef;
+	margin-left : 2%;
+	margin-top : 1%;
+}
+
+.tooltip {
+  position: absolute;
+  z-index: 1070;
+  display: block;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1.42857143;
+  text-align: left;
+  text-align: start;
+  text-decoration: none;
+  text-shadow: none;
+  text-transform: none;
+  letter-spacing: normal;
+  word-break: normal;
+  word-spacing: normal;
+  word-wrap: normal;
+  white-space: normal;
+  filter: alpha(opacity=0);
+  opacity: 0;
+
+  line-break: auto;
+}
+
+.tooltip.in {
+  filter: alpha(opacity=90);
+  opacity: .9;
+}
+.tooltip.top {
+  padding: 5px 0;
+  margin-top: -3px;
+}
+.tooltip.right {
+  padding: 0 5px;
+  margin-left: 3px;
+}
+.tooltip.bottom {
+  padding: 5px 0;
+  margin-top: 3px;
+}
+.tooltip.left {
+  padding: 0 5px;
+  margin-left: -3px;
+}
+.tooltip-inner {
+  max-width: 200px;
+  padding: 3px 8px;
+  color: #fff;
+  text-align: center;
+  background-color: #000;
+  border-radius: 4px;
+}
+.tooltip-arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+}
+.tooltip.top .tooltip-arrow {
+  bottom: 0;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px 5px 0;
+  border-top-color: #000;
+}
+.tooltip.top-left .tooltip-arrow {
+  right: 5px;
+  bottom: 0;
+  margin-bottom: -5px;
+  border-width: 5px 5px 0;
+  border-top-color: #000;
+}
+.tooltip.top-right .tooltip-arrow {
+  bottom: 0;
+  left: 5px;
+  margin-bottom: -5px;
+  border-width: 5px 5px 0;
+  border-top-color: #000;
+}
+.tooltip.right .tooltip-arrow {
+  top: 50%;
+  left: 0;
+  margin-top: -5px;
+  border-width: 5px 5px 5px 0;
+  border-right-color: #000;
+}
+.tooltip.left .tooltip-arrow {
+  top: 50%;
+  right: 0;
+  margin-top: -5px;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #000;
+}
+.tooltip.bottom .tooltip-arrow {
+  top: 0;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 0 5px 5px;
+  border-bottom-color: #000;
+}
+.tooltip.bottom-left .tooltip-arrow {
+  top: 0;
+  right: 5px;
+  margin-top: -5px;
+  border-width: 0 5px 5px;
+  border-bottom-color: #000;
+}
+.tooltip.bottom-right .tooltip-arrow {
+  top: 0;
+  left: 5px;
+  margin-top: -5px;
+  border-width: 0 5px 5px;
+  border-bottom-color: #000;
+}

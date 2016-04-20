@@ -53,6 +53,7 @@ public class FetchProfile {
 			  user.setFname(rs.getString("fname").toString());
 			  user.setLname(rs.getString("lname").toString());
 			  user.setUserid(userid);
+			  user.setProfileurl("/NewsGroup/user/"+userid);
 		  	}
 		  ps = con.prepareStatement("select count(*) as countposts from article where userid=?");
 		  ps.setString(1,userid);
@@ -107,6 +108,12 @@ public class FetchProfile {
 	   		e.printStackTrace();
 	   	}
 	   	
+	   	finally {
+			  try{
+				  if(con!=null) {con.close();rs.close();}
+			  }
+			  catch(Exception eas) {eas.printStackTrace();}
+		  }
 	   	return temp;
 	}
 }

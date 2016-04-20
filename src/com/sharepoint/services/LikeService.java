@@ -12,9 +12,9 @@ import com.sharepoint.model.User;
 
 public class LikeService {
 	
-	public static List<String> getNamesofLikers(String aid)
+	public static ArrayList<String> getNamesofLikers(String aid)
 	{
-		List<String> likerlist = new ArrayList<String>();
+		ArrayList<String> likerlist = new ArrayList<String>();
 		Connection con = null;
 		ResultSet rs = null;
 		System.out.println("Aid : "+aid);
@@ -34,7 +34,10 @@ public class LikeService {
 		{
 			e.printStackTrace();
 		}
-		
+		finally {
+			try{ if(con!=null) {con.close(); rs.close();}}
+			catch(Exception e) {e.printStackTrace();}
+		}
 		return likerlist;
 	}
 	
@@ -108,6 +111,7 @@ public class LikeService {
 			  	}
 		  }
 		  
+		  
 		return nooflikes;
 	}
 	
@@ -137,6 +141,12 @@ public class LikeService {
 			e.printStackTrace();
 		}
 		
+		finally {
+			  try{
+				  if(con!=null) {con.close();rs.close();}
+			  }
+			  catch(Exception eas) {eas.printStackTrace();}
+		  }
 		return likerlist;
 	}
 }

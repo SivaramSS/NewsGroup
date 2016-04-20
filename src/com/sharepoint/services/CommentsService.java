@@ -36,6 +36,7 @@ public class CommentsService {
 			  c.setUserid(rs.getInt("userid")+"");
 			  c.setContent(rs.getString("comment"));
 			  c.setFname(rs.getString("fname"));
+			  c.setProfileurl("/NewsGroup/user/"+c.getUserid());
 			  commentlist.add(c);
 		  }
 		}
@@ -48,6 +49,7 @@ public class CommentsService {
 		  try {
 			rs.close();
 			con.close();
+			System.out.println("Connection closed");
 		  } 
 		  catch (SQLException e) 
 		  {
@@ -94,6 +96,7 @@ public class CommentsService {
 		{
 			try {
 				con.close();
+				System.out.println("Connection closed");
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

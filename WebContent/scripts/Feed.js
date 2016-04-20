@@ -1,4 +1,4 @@
- function loadFeed()
+ function loadFeedsd()
     {	
     	 $(".container").empty();
     	 $(".caption").empty().text("Populating your feed...");

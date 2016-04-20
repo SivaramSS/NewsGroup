@@ -17,20 +17,21 @@ public class LoginAction extends ActionSupport implements SessionAware, ServletR
 
 	SessionMap<String,Object> sessionMap;
 	private User user = new User();
+	String password;
 	private static String SUCCESS = "success", LOGIN = "login";
     HttpServletRequest request;
     String loginflag;
     
 	public String execute()
 	{   
+		System.out.println("In Login Action");
 		if(sessionMap.containsKey("user"))
 			return SUCCESS;
 		else
 		{
-			System.out.println("In LoginAction : "+user.getEmail() +" " + user.getPassword());
 			CheckLogin cl = new CheckLogin();
 		
-			if(cl.authenticate(user)==true) 
+			if(cl.authenticate(user,password)==true) 
 				{
 			  		user = cl.getUserob();
 			  		sessionMap.put("user", user.getUserid()+"");
@@ -67,6 +68,14 @@ public class LoginAction extends ActionSupport implements SessionAware, ServletR
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String pass) {
+		this.password = pass;
 	}
 	
 }

@@ -14,7 +14,7 @@
 		</field-validator>
 	</field>
 	
-	<field name="user.password">
+	<field name="password">
 		<field-validator type="requiredstring">
 			<param name="trim">true</param>
 			<message>Please enter Password</message>

@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class Comment implements Serializable
 {	
-	String cid,content,userid,fname;
+	String cid,content,userid,fname,profileurl;
 	Date cdate;
 	
 	public String getUserid() {
@@ -39,6 +39,10 @@ public class Comment implements Serializable
 	public void setCdate(Date cdate) {
 		this.cdate = cdate;
 	}
-	
-	
+	public String getProfileurl() {
+		return profileurl;
+	}
+	public void setProfileurl(String profileurl) {
+		this.profileurl = profileurl;
+	}
 }

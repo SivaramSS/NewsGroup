@@ -19,6 +19,7 @@ public class ShareAction extends ActionSupport implements SessionAware, ServletR
 	String shareUrl;
 	Article article = new Article();
 	HttpServletRequest request;
+	User user;
 	
 	@Override
 	public void setSession(Map<String, Object> map) {
@@ -36,7 +37,7 @@ public class ShareAction extends ActionSupport implements SessionAware, ServletR
 		System.out.println("Url to be added : "+ shareUrl);
 		
 		a.setUrl(shareUrl);
-		a.setLiked(0);
+		a.setLiked(false);
 		a.setCount_comments(0);
 		a.setCount_likes(0);
 		
@@ -71,6 +72,12 @@ public class ShareAction extends ActionSupport implements SessionAware, ServletR
 	public void setArticle(Article article) {
 		this.article = article;
 	}
-	
 
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 }
