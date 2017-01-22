@@ -9,6 +9,10 @@ NewsGroup is a Web application developed using Struts 2 and AngularJS in front e
 - User profile page.
 - Like, comment a post.
 
+##How to Run?
+  
+All the library files are included in the WEB-INF/lib. Download and run the project on your local server.
+  
 ##Frameworks and Libraries used
 
 - Struts2
